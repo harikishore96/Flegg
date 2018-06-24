@@ -8,28 +8,27 @@ pipeline {
     }
     stage('clean') {
       steps {
-        sh 'chmod +x gradlew'
-        sh './gradlew clean --no-daemon'
+        bat(script: 'gradlew clean --no-daemon', returnStatus: true, returnStdout: true)
       }
     }
     stage('install tools') {
       steps {
-        sh './gradlew yarn_install -PnodeInstall --no-daemon'
+        bat(script: 'gradlew yarn_install -PnodeInstall --no-daemon', returnStatus: true, returnStdout: true)
       }
     }
     stage('backend tests') {
       steps {
-        sh './gradlew test -PnodeInstall --no-daemon'
+        bat(script: 'gradlew test -PnodeInstall --no-daemon', returnStatus: true, returnStdout: true)
       }
     }
     stage('frontend tests') {
       steps {
-        sh './gradlew yarn_test -PnodeInstall --no-daemon'
+        bat(script: 'gradlew yarn_test -PnodeInstall --no-daemon', returnStatus: true, returnStdout: true)
       }
     }
     stage('packaging') {
       steps {
-        sh './gradlew bootWar -x test -Pprod -PnodeInstall --no-daemon'
+        bat(script: 'gradlew bootWar -x test -Pprod -PnodeInstall --no-daemon', returnStatus: true, returnStdout: true)
         archiveArtifacts(artifacts: '**/build/libs/*.war', fingerprint: true)
       }
     }
