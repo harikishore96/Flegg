@@ -30,25 +30,13 @@ pipeline {
 
         stage('backend tests') {
             steps {
-                try {
-                    sh "./gradlew test -PnodeInstall --no-daemon"
-                } catch(err) {
-                    throw err
-                } finally {
-                    junit '**/build/**/TEST-*.xml'
-                }
+                sh "./gradlew test -PnodeInstall --no-daemon"
             }
         }
 
         stage('frontend tests') {
             steps {
-                try {
-                    sh "./gradlew yarn_test -PnodeInstall --no-daemon"
-                } catch(err) {
-                    throw err
-                } finally {
-                    junit '**/build/test-results/jest/TESTS-*.xml'
-                }
+                sh "./gradlew yarn_test -PnodeInstall --no-daemon"
             }
         }
 
