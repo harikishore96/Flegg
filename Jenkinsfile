@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh "chmod +x gradlew"
                 sh "./gradlew clean --no-daemon"
+            }
         }
 
         stage('install tools') {
