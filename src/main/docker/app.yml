@@ -1,0 +1,15 @@
+version: '2'
+services:
+    flegg-app:
+        image: flegg
+        environment:
+            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://flegg-postgresql:5432/Flegg
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 4290:4290
+    flegg-postgresql:
+        extends:
+            file: postgresql.yml
+            service: flegg-postgresql
